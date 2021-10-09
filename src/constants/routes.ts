@@ -1,42 +1,39 @@
-/**
- * Internal URLs
- */
-
+// Internal URLs
 export const ROUTES = {
-  legal: {
-    guidelines: '/guidelines',
-    privacyPolicy: '/privacy-policy',
-    termsOfUse: '/terms-of-use',
-  },
-  projects: {
-    approvedProjects: '/projects/approved-projects',
-    home: '/projects',
-    rules: '/projects/rules',
-  },
-  tools: {
-    apis: '/api',
-    developerTools: '/developer-tools',
-  },
-  whitepaper: {
-    architecture: '/whitepaper/architecture',
-    home: '/whitepaper',
-    principalEntities: '/whitepaper/principal-entities',
-    principalEvents: '/whitepaper/principal-events',
-  },
+  analytics: '/analytics',
+  arcade: '/arcade',
+  assets: '/assets',
+  bounties: '/bounties',
+  createAccount: '/create-account',
+  deploymentGuide: '/deployment-guide',
+  donate: '/donate',
+  download: '/download',
+  faq: '/faq',
+  guidelines: '/guidelines',
+  openings: '/openings',
+  privacyPolicy: '/privacy-policy',
+  progress: '/progress',
+  roadmap: '/roadmap',
+  signin: 'sign-in',
+  signout: '/sign-out',
+  social: '/social',
+  styleGuide: '/style-guide',
+  teams: '/teams',
+  termsOfUse: '/terms-of-use',
+  tutorials: '/tutorials',
+  users: '/users',
+  wallet: '/wallet',
 };
 
-/**
- * External URLs
- */
-const websiteUrl = 'https://thenewboston.com';
-const githubUrl = 'https://github.com/thenewboston-developers';
+// External URLs
+const developerPortalUrl = 'https://developer.thenewboston.com';
+
 export const URLS = {
-  github: {
-    home: githubUrl,
-    proposeProjects: `${githubUrl}/Projects/issues/new?assignees=&labels=Project&template=project-proposal.md&title=NAME_OF_YOUR_PROJECT`,
+  blog: 'https://blog.thenewboston.com',
+  developerPortal: {
+    home: developerPortalUrl,
+    projects: `${developerPortalUrl}/projects`,
+    whitepaper: `${developerPortalUrl}/whitepaper`,
   },
-  website: {
-    download: `${websiteUrl}/download`,
-    home: websiteUrl,
-  },
+  github: 'https://github.com/thenewboston-developers',
 };

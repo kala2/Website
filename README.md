@@ -2,7 +2,7 @@
   <img alt="thenewboston logo" src="./src/assets/svgs/thenewboston-primary.svg" width="400">
 </p>
 
-> This repository contains the source code and documentation for [thenewboston.com](https://thenewboston.com/) website's Developer Portal.
+> This repository contains the source code and documentation for [thenewboston.com](https://thenewboston.com/) website.
 
 <p align="center">
   <img alt="screenshot of website" src="https://imgur.com/Nw7W49v.png">

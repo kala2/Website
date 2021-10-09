@@ -12,7 +12,7 @@ $footer-height: 348px;
   }
 
   &__footer-wrapper {
-    background-color: var(--color-neutral-075);
+    background: var(--color-primary);
     padding: 60px 60px 120px;
 
     @media (max-width: 992px) {

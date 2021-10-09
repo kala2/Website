@@ -1,24 +1,27 @@
 import React, {FC, ReactNode, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import clsx from 'clsx';
 import {Icon, IconType} from '@thenewboston/ui';
 
-import {A} from 'components';
+import {A, Button} from 'components';
 import {ROUTES, URLS} from 'constants/routes';
 import './TopNavMobileMenu.scss';
 
 interface ComponentProps {
   closeMenu(): void;
   menuOpen: boolean;
+  smallDevice: boolean;
   toggleMenu(): void;
 }
 
-type SectionStrings = 'whitepaper' | 'projects' | 'tools';
+type SectionStrings = 'community' | 'getStarted' | 'resources' | 'about' | 'faq' | 'developer';
 
-const TopNavMobileMenu: FC<ComponentProps> = ({closeMenu, menuOpen, toggleMenu}) => {
+const TopNavMobileMenu: FC<ComponentProps> = ({closeMenu, menuOpen, smallDevice, toggleMenu}) => {
+  const history = useHistory();
   const [openSection, setOpenSection] = useState<SectionStrings | null>(null);
 
   const handleColumnTitleClick = (section: SectionStrings) => (): void => {
+    if (!smallDevice) return;
     setOpenSection(openSection === section ? null : section);
   };
 
@@ -27,16 +30,18 @@ const TopNavMobileMenu: FC<ComponentProps> = ({closeMenu, menuOpen, toggleMenu})
       <div className="TopNavMobileMenu__column">
         <button className="TopNavMobileMenu__title-wrapper" onClick={handleColumnTitleClick(section)}>
           <span className="TopNavMobileMenu__column-title TopNavMobileMenu__column-title--accordion">{title}</span>
-          <span className="TopNavMobileMenu__icon-holder">
-            <Icon
-              className={clsx('TopNavMobileMenu__chevron-icon', {
-                'TopNavMobileMenu__chevron-icon--open': openSection === section,
-              })}
-              icon={IconType.chevronDown}
-            />
-          </span>
+          {smallDevice && (
+            <span className="TopNavMobileMenu__icon-holder">
+              <Icon
+                className={clsx('TopNavMobileMenu__chevron-icon', {
+                  'TopNavMobileMenu__chevron-icon--open': openSection === section,
+                })}
+                icon={IconType.chevronDown}
+              />
+            </span>
+          )}
         </button>
-        <div className="TopNavMobileMenu__links">{openSection === section ? links : null}</div>
+        <div className="TopNavMobileMenu__links">{!smallDevice || openSection === section ? links : null}</div>
       </div>
     );
   };
@@ -47,32 +52,61 @@ const TopNavMobileMenu: FC<ComponentProps> = ({closeMenu, menuOpen, toggleMenu})
         <div className="TopNavMobileMenu__dropdown-container">
           <div className="TopNavMobileMenu__links-container">
             {renderColumn(
-              'whitepaper',
-              'Living Whitepaper',
+              'getStarted',
+              'Get Started',
               <>
-                {renderMobileLink('Home', ROUTES.whitepaper.home)}
-                {renderMobileLink('Principal Entities on the Network', ROUTES.whitepaper.principalEntities)}
-                {renderMobileLink('Principal Events and Processes on the Network', ROUTES.whitepaper.principalEvents)}
-                {renderMobileLink('Architecture Deep Dive', ROUTES.whitepaper.architecture)}
+                {renderMobileLink('Bounties', ROUTES.bounties)}
+                {renderMobileLink('Projects', URLS.developerPortal.projects, true)}
               </>,
             )}
             {renderColumn(
-              'projects',
-              'Projects',
+              'community',
+              'Community',
               <>
-                {renderMobileLink('Home', ROUTES.projects.home)}
-                {renderMobileLink('Approved Projects', ROUTES.projects.approvedProjects)}
-                {renderMobileLink('Projects Rules and Guidelines', ROUTES.projects.rules)}
+                {renderMobileLink('Join the Community!', ROUTES.social)}
+                {renderMobileLink('Weekly Progress', ROUTES.progress)}
+                {renderMobileLink('Openings', ROUTES.openings)}
+                {renderMobileLink('Community Guidelines', ROUTES.guidelines)}
+                {renderMobileLink('Analytics', ROUTES.analytics)}
+                {renderMobileLink('Beta Roadmap', ROUTES.roadmap)}
+                {renderMobileLink('Blog', URLS.blog, true)}
               </>,
             )}
             {renderColumn(
-              'tools',
-              'Tools',
+              'developer',
+              'Developer',
+              <>{renderMobileLink('Developer', URLS.developerPortal.home, true)}</>,
+            )}
+            {renderColumn(
+              'resources',
+              'Resources',
               <>
-                {renderMobileLink('APIs', ROUTES.tools.apis)}
-                {renderMobileLink('Developer Tools', ROUTES.tools.developerTools)}
+                {renderMobileLink('Documentation', ROUTES.wallet)}
+                {renderMobileLink('Tutorials', ROUTES.tutorials)}
+                {renderMobileLink('Media Kit', ROUTES.assets)}
               </>,
             )}
+            {renderColumn(
+              'about',
+              'About',
+              <>
+                {renderMobileLink('Teams', ROUTES.teams)}
+                {renderMobileLink('Donate', ROUTES.donate)}
+              </>,
+            )}
+            {renderColumn('faq', 'FAQ', <>{renderMobileLink('FAQ', ROUTES.faq)}</>)}
+          </div>
+          <div className="TopNavMobileMenu__buttons-container">
+            <Button
+              className="TopNavMobileMenu__arcade-button"
+              onClick={() => history.push(ROUTES.arcade)}
+              variant="outlined"
+            >
+              Arcade
+            </Button>
+            <Button className="TopNavMobileMenu__download-button" onClick={() => history.push(ROUTES.download)}>
+              Download Wallet
+            </Button>
           </div>
         </div>
         <div className="TopNavMobileMenu__overlay" onClick={closeMenu} role="button" tabIndex={0} />
@@ -97,9 +131,6 @@ const TopNavMobileMenu: FC<ComponentProps> = ({closeMenu, menuOpen, toggleMenu})
 
   return (
     <div className="TopNavMobileMenu">
-      <A className="TopNavMobileMenu__home" href={URLS.website.home}>
-        thenewboston.com
-      </A>
       <button className="TopNavMobileMenu__button" onClick={toggleMenu}>
         <Icon icon={IconType.menu} size={24} />
       </button>
